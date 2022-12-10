@@ -1,7 +1,7 @@
 # Use w64devkit on windows to build [https://github.com/skeeto/w64devkit]
 COREVERSION=0.1
-SDCCVERSION=11242
-TOOLSVERSION=2019.02.05
+SDCCVERSION=13763
+TOOLSVERSION=2022.12.30
 
 # Default the tool version to be the current date as YYYY.MM.DD
 #TOOLSVERSION?=$(shell date '+%Y.%m.%d')

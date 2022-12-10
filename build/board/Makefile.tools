@@ -40,7 +40,7 @@ TOOLS_LINUX=$(ARCHIVEDIR)/$(NAME)_linux-$(TOOLSVERSION).tar.bz2
 TOOLS_MAC=$(ARCHIVEDIR)/$(NAME)_mac-$(TOOLSVERSION).tar.bz2
 TOOLS_WINDOWS=$(ARCHIVEDIR)/$(NAME)_win-$(TOOLSVERSION).tar.bz2
 
-TOOLS_TARS=$(TOOLS_LINUX) $(TOOLS_MAC) $(TOOLS_WINDOWS)
+TOOLS_TARS=$(TOOLS_WINDOWS) $(TOOLS_LINUX) $(TOOLS_MAC)
 EXCLUDES=$(addprefix --exclude=, $(IGNORE))
 
 
@@ -54,15 +54,15 @@ $(TOOLS_ENTRY) : $(TOOLS_TARS)
 
 $(TOOLS_LINUX): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Linux 64 bit."
-	tar cjf $@ $(EXCLUDES) -C $(BASEDIR)/linux
+	tar cjf $@ $(EXCLUDES) -C $(BASEDIR)/linux .
 
 $(TOOLS_MAC): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Mac OS"
-	tar cjf $@ $(EXCLUDES) -C $(BASEDIR)/mac
+	tar cjf $@ $(EXCLUDES) -C $(BASEDIR)/mac .
 
 $(TOOLS_WINDOWS): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Windows 64."
-	tar cjhf $@ $(EXCLUDES) -C $(BASEDIR)/win
+	tar cjhf $@ $(EXCLUDES) -C $(BASEDIR)/win .
 
 
 # make a new release directory if not present

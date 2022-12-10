@@ -1,0 +1,14 @@
+# Nuvoton n76e core and platform for Arduino 
+# ------------------------------
+#
+# For more info on this file: https://arduino.github.io/arduino-cli/0.29/platform-specification/
+
+name=Ohmex N76E Platform
+version=0.0.1
+
+# General folder structure variables
+# ----------------------------------
+
+runtime.tools.ohmex.path={runtime.hardware.path}/tools
+runtime.tools.sdcc.path={runtime.hardware.path}/tools/sdcc
+

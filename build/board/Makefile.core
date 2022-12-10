@@ -18,7 +18,7 @@ COREDIR?=release/v$(COREVERSION)
 PARTSDIR?=parts
 
 # subtree of the repository to be included in the archive
-SUBTREE=n76e
+SUBTREE=8c51
 
 #
 ### No user serviceable part below here. ################################

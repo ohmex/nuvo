@@ -13,7 +13,7 @@ PACKAGEFILE=package_nuvo_8c51_index.json
 # Version for pre-release testing on my private server at home
 TESTPACKAGEFILE=package_test_index.json
 TESTBASEURL=http://localhost/nuvo
-TESTBASEDIR=C:\xampp\htdocs\nuvo
+TESTBASEDIR=C:/xampp/htdocs/nuvo
 
 # Make sure these definitions are visible for the sub-makes
 export
@@ -39,7 +39,8 @@ clean:
 # Upload to my private test server, totally useless for anybody else.
 upload: $(TESTPACKAGEFILE)
 	@echo "uploading to $(TESTBASEDIR)"
-	rsync -av -rsh=ssh --delete release $(TESTPACKAGEFILE) $(TESTBASEDIR)
+	#rsync -av -rsh=ssh --delete release $(TESTPACKAGEFILE) $(TESTBASEDIR)
+	cp -R release $(TESTPACKAGEFILE) $(TESTBASEDIR)
 	@echo "URL for board manager: $(TESTBASEURL)/$(TESTPACKAGEFILE)"
 
 DATE=$(shell date '+%F')

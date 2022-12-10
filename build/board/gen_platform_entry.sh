@@ -21,7 +21,7 @@ COREFILE=$1
 COREVERSION=$2
 SDCCVERSION=$3
 TOOLSVERSION=$4
-PACKAGER=ohmex
+PACKAGER=nuvo
 
 BASEURL=https://github.com/ohmex/nuvo/releases/download/v${COREVERSION}
 

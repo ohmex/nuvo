@@ -44,9 +44,8 @@ $(PLATFORM_ENTRY): $(COREFILE)
 $(COREFILE): | $(COREDIR)
 	echo "Generating the core archive file."
 	$(eval TMPDIR := $(shell mktemp -d))
-	cd ..; git archive -v HEAD:n76e|tar -x -C $(TMPDIR)
-	sed -i '/^tools\.n76e/ s#{runtime.hardware.path}/tools#{runtime.tools.N76ETools.path}#' \
-		$(TMPDIR)/platform.txt
+	cd ../..; git archive -v HEAD:n76e|tar -x -C $(TMPDIR)
+	sed -i '/^tools\.n76e/ s#{runtime.hardware.path}/tools#{runtime.tools.N76ETools.path}#' $(TMPDIR)/platform.txt
 	tar cvjf $(COREFILE) -C $(TMPDIR) .
 	rm -rf $(TMPDIR)
 

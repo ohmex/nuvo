@@ -1,0 +1,19 @@
+{
+    "packages": [
+        {
+            "name": "nuvo",
+            "maintainer": "Ohmex",
+            "websiteURL": "https://ohmex.github.io/nuvo/",
+            "email": "trulysachin@gmail.com",
+            "help": {
+                "online": "http://www.discord.com/"
+            },
+            "platforms" : [
+            {}
+            ],
+            "tools" : [
+            {}
+            ]
+        }
+    ]
+}

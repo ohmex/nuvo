@@ -60,13 +60,13 @@ EOF
 detect_hosttype()
 {
 	case $1 in
-		*linux* )
+		*amd64-unknown-linux* | *linux* )
 			HOST="x86_64-pc-linux-gnu"
 			;;
-		*win*)
+		*mingw32* | *win*)
 			HOST="i686-mingw32"
 			;;
-		*mac*)
+		*macosx* | *mac*)
 			HOST="x86_64-apple-darwin"
 			;;
 	esac

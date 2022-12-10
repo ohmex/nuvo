@@ -21,8 +21,8 @@ endif
 #	COREVERSION doesn't matter, but needs to be present.
 
 
-# where to look for the original SDCC snapshot files
-#SNAPSHOTDIR=sdcc-snapshots
+# where to look for the original SDCC download files
+DOWNLOADDIR=sdcc-downloads
 
 # where to put the generated files
 SDCCDIR=release/v$(COREVERSION)
@@ -41,7 +41,8 @@ VERSION=$(SDCCVERSION)
 TOOLS_STEM=$(SDCCDIR)/$(NAME)
 
 # The individual filenames for the different sdcc archives
-SDCC_TARS=$(wildcard $(TOOLS_STEM)-*-$(VERSION).*)
+#SDCC_TARS=$(wildcard $(TOOLS_STEM)-*-$(VERSION).*)
+SDCC_TARS=$(ls sdcc*-13763.*)
 
 # filename for the new tools entries
 TOOLS_ENTRY=$(PARTSDIR)/tools-entry-$(NAME)-$(VERSION).txt

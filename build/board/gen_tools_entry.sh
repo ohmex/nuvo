@@ -78,7 +78,7 @@ detect_tooltype()
 {
 	case $1 in
 		*nuvo-tools* )
-			NAME=N76ETools
+			NAME=8C51Tools
 			VERSIONSTRING=$VERSION
 			;;
 		*sdcc* )

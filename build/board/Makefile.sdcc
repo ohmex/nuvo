@@ -40,18 +40,14 @@ VERSION=$(SDCCVERSION)
 # (up to the first dash '-')
 TOOLS_STEM=$(SDCCDIR)/$(NAME)
 
-# The individual filenames for the different sdcc archives
-#SDCC_TARS=$(wildcard $(TOOLS_STEM)-*-$(VERSION).*)
-#SDCC_TARS=$(ls $(DOWNLOADDIR)/sdcc*-13763.*)
-
 # filename for the new tools entries
 TOOLS_ENTRY=$(PARTSDIR)/tools-entry-$(NAME)-$(VERSION).txt
 
-$(TOOLS_ENTRY) : $(SDCC_TARS)
+$(TOOLS_ENTRY) : SDCC_TARS
 	./gen_tools_entry.sh "$(TOOLS_STEM)" "$(VERSION)" "$(COREVERSION)" > $@
 
-$(SDCC_TARS):
-	cp $(DOWNLOADDIR)/sdcc*-13763.* $(SDCCDIR)
+SDCC_TARS:
+	cp $(DOWNLOADDIR)/sdcc*-$(VERSION).* $(SDCCDIR)
 
 repack:
 	for i in ~/Downloads/sdcc*$(SDCCVERSION)*; do \

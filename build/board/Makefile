@@ -32,8 +32,9 @@ core tools sdcc:
 	make -f Makefile.$@
 
 clean:
-	rm -rf *~ *.jsone *.bak *.orig *.rej
-
+	rm -rf *~ ../*.jsone *.bak *.orig *.rej
+	rm -rf release parts/* package_test_index.json
+	rm -f ../*.json
 
 # Upload to my private test server, totally useless for anybody else.
 upload: $(TESTPACKAGEFILE)

@@ -21,7 +21,7 @@ COREFILE=$1
 COREVERSION=$2
 SDCCVERSION=$3
 TOOLSVERSION=$4
-PACKAGER=sduino
+PACKAGER=ohmex
 
 BASEURL=https://github.com/ohmex/nuvo/releases/download/v${COREVERSION}
 
@@ -32,8 +32,8 @@ print_filedata()
 {
 	FILENAME=$(basename "$1")
 	URL=${BASEURL}/${FILENAME}
-	SIZE=$(stat --printf="%s" $1)
-	CHKSUM=$(shasum -a 256 $1|cut "-d " -f1)
+	SIZE=$(stat -c %s $1)
+	CHKSUM=$(sha256sum $1|cut "-d " -f1)
 cat << EOF
     "url": "$URL",
     "archiveFileName": "$FILENAME",

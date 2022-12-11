@@ -1,0 +1,36 @@
+menu.upload_method=Upload method
+
+##############################################################
+
+n76e003basic.name=Arduino Nuvo (N76E003) Basic Board
+
+# First upload method is the default method
+n76e003basic.menu.upload_method.stm8flash_onboardMethod=Onboard ST-Link/V1 programmer
+n76e003basic.menu.upload_method.stm8flash_onboardMethod.upload.tool=stm8flash
+n76e003basic.menu.upload_method.stm8flash_onboardMethod.upload.protocol=stlink
+
+n76e003basic.menu.upload_method.stm8flashMethod=external ST-Link/V2 programmer
+n76e003basic.menu.upload_method.stm8flashMethod.upload.tool=stm8flash
+n76e003basic.menu.upload_method.stm8flashMethod.upload.protocol=stlinkv2
+
+n76e003basic.menu.upload_method.stm8galMethod=Serial (using stm8gal with builtin bootloader)
+n76e003basic.menu.upload_method.stm8galMethod.upload.tool=stm8gal
+n76e003basic.menu.upload_method.stm8galMethod.upload.protocol=serial
+n76e003basic.menu.upload_method.stm8galMethod.params.reset=-R 1
+
+# a global definition of upload speed is required to keep the makefile happy
+n76e003basic.upload.speed=115200
+n76e003basic.upload.mcu=stm8s105?6
+n76e003basic.upload.maximum_size=32768
+n76e003basic.upload.maximum_data_size=2048
+
+n76e003basic.bootloader.tool=stm8flash
+
+n76e003basic.build.mcu=STM8S105
+n76e003basic.build.f_cpu=16000000L
+n76e003basic.build.board=STM8S_DISCOVERY
+n76e003basic.build.core=sduino
+n76e003basic.build.variant=n76e003basic
+
+
+##############################################################

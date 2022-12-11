@@ -74,6 +74,8 @@ OFF='\033[0m'
 fi
 
 
+PATH="$(dirname $1)":$PATH
+
 SDCC="$1"
 shift
 

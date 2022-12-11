@@ -49,7 +49,7 @@ list_boards()
 {
 	echo -n "    \"boards\": ["
 	n=0
-	sed -n "s/.*\.name=//p" ../../platform/boards.txt |\
+	sed -n "s/.*\.name=//p" ../../platform/mcs51/boards.txt |\
 	while read line; do
 		if [ $n -ne 0 ]; then echo -n ","; fi
 		echo

@@ -1,4 +1,4 @@
-NAME=nuvo-tools
+NAME=ohmex
 
 ifndef COREVERSION
 $(error COREVERSION is not set)

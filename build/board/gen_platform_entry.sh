@@ -66,8 +66,8 @@ list_boards()
 
 cat << EOF
 {
-    "name": "Ohmex 8C51 plain C core (non-C++)",
-    "architecture": "8c51",
+    "name": "Ohmex C51 plain C core (non-C++)",
+    "architecture": "c51",
     "version": "$COREVERSION",
     "category": "Contributed",
 EOF
@@ -75,7 +75,7 @@ list_boards
 cat << EOF
     "toolsDependencies": [
         {
-            "name": "8C51Tools",
+            "name": "ohmex",
             "version": "$TOOLSVERSION",
             "packager": "$PACKAGER"
         },

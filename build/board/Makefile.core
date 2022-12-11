@@ -18,7 +18,7 @@ COREDIR?=release/v$(COREVERSION)
 PARTSDIR?=parts
 
 # subtree of the repository to be included in the archive
-SUBTREE=8c51
+SUBTREE=core
 
 #
 ### No user serviceable part below here. ################################
@@ -44,8 +44,8 @@ $(PLATFORM_ENTRY): $(COREFILE)
 $(COREFILE): | $(COREDIR)
 	echo "Generating the core archive file."
 	$(eval TMPDIR := $(shell mktemp -d))
-	cd ../..; git archive -v HEAD:8c51|tar -x -C $(TMPDIR)
-	sed -i '/^tools\.8c51/ s#{runtime.hardware.path}/tools#{runtime.tools.8C51Tools.path}#' $(TMPDIR)/platform.txt
+	cd ../..; git archive -v HEAD:ohmex|tar -x -C $(TMPDIR)
+	sed -i '/^tools\.ohmex/ s#{runtime.hardware.path}/tools#{runtime.tools.ohmex.path}#' $(TMPDIR)/platform.txt
 	tar cvjf $(COREFILE) -C $(TMPDIR) .
 	rm -rf $(TMPDIR)
 

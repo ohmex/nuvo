@@ -8,7 +8,7 @@ TOOLSVERSION=2022.12.30
 
 BASEURL=https://github.com/ohmex/nuvo/releases/download/v$(COREVERSION)
 
-PACKAGEFILE=package_nuvo_8c51_index.json
+PACKAGEFILE=package_nuvo_c51_index.json
 
 # Version for pre-release testing on my private server at home
 TESTPACKAGEFILE=package_test_index.json

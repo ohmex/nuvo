@@ -8,11 +8,10 @@ version=1.0.0
 
 # General folder structure variables
 # ----------------------------------
-
-runtime.tools.ohmex.path={runtime.hardware.path}/tools/ohmex
 runtime.tools.sdcc.path={runtime.hardware.path}/tools/sdcc
+runtime.tools.ohmex.path={runtime.hardware.path}/tools/ohmex
 
-# C51 compile variables
+# CH55x compile variables
 # ---------------------
 
 compiler.warning_flags=
@@ -23,8 +22,8 @@ compiler.warning_flags.all=-Wp-Wall -V
 
 # Default "compiler.path" is correct, change only if you want to override the initial value
 compiler.path={runtime.tools.sdcc.path}/bin
-compiler.wrapper.path={runtime.tools.ohmex.path}
-compiler.wrapper.path.windows={runtime.tools.ohmex.path}/busybox" ash "{runtime.tools.ohmex.path}
+compiler.wrapper.path={runtime.tools.ohmex.path}/wrapper
+compiler.wrapper.path.windows={runtime.tools.ohmex.path}/busybox" ash "{runtime.tools.ohmex.path}/wrapper
 compiler.tools.path={runtime.tools.avr-gcc.path}/bin
 
 compiler.c.cmd=sdcc
@@ -73,7 +72,7 @@ compiler.ar.extra_flags=
 compiler.objcopy.eep.extra_flags=
 compiler.elf2hex.extra_flags=
 
-# C51 compile patterns
+# MCS51 compile patterns
 # --------------------
 
 ## Compile c files (re1)

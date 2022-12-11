@@ -13,17 +13,17 @@ if [ $# -ne 4 ]; then
 	echo "Prints one platform entry for the given file to be added to the"
 	echo "package_*_index.json file."
 	echo
-	echo "usage: $0 corefile coreversion sdccversion toolsversion"
+	echo "usage: $0 corefile PLATFORMVERSION sdccversion toolsversion"
 	exit 1
 fi
 
 COREFILE=$1
-COREVERSION=$2
+PLATFORMVERSION=$2
 SDCCVERSION=$3
 TOOLSVERSION=$4
 PACKAGER=nuvo
 
-BASEURL=https://github.com/ohmex/nuvo/releases/download/v${COREVERSION}
+BASEURL=https://github.com/ohmex/nuvo/releases/download/v${PLATFORMVERSION}
 
 ### helper functions #####################################################
 
@@ -68,7 +68,7 @@ cat << EOF
 {
     "name": "Nuvoton C51 plain C core (non-C++)",
     "architecture": "c51",
-    "version": "$COREVERSION",
+    "version": "$PLATFORMVERSION",
     "category": "Contributed",
 EOF
 list_boards

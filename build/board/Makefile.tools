@@ -1,7 +1,7 @@
 NAME=nuvo
 
-ifndef COREVERSION
-$(error COREVERSION is not set)
+ifndef PLATFORMVERSION
+$(error PLATFORMVERSION is not set)
 endif
 
 ifndef SDCCVERSION
@@ -20,7 +20,7 @@ BASEDIR=../../tools
 IGNORE=*~ *bak x build-* *.orig *.rej
 
 # where to put the generated files
-ARCHIVEDIR=release/v$(COREVERSION)
+ARCHIVEDIR=release/v$(PLATFORMVERSION)
 PARTSDIR=parts
 
 
@@ -50,7 +50,7 @@ EXCLUDES=$(addprefix --exclude=, $(IGNORE))
 
 # generate one tools entry for all matching tools files
 $(TOOLS_ENTRY) : $(TOOLS_TARS)
-	./gen_tools_entry.sh "$(TOOLS_STEM)" "$(TOOLSVERSION)" "$(COREVERSION)" > $@
+	./gen_tools_entry.sh "$(TOOLS_STEM)" "$(TOOLSVERSION)" "$(PLATFORMVERSION)" > $@
 
 $(TOOLS_LINUX): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Linux 64 bit."

@@ -1,12 +1,12 @@
 # Use w64devkit on windows to build [https://github.com/skeeto/w64devkit]
-COREVERSION=0.1
+PLATFORMVERSION=1.0
 SDCCVERSION=13763
-TOOLSVERSION=2022.12.30
+TOOLSVERSION=2022
 
 # Default the tool version to be the current date as YYYY.MM.DD
 #TOOLSVERSION?=$(shell date '+%Y.%m.%d')
 
-BASEURL=https://github.com/ohmex/nuvo/releases/download/v$(COREVERSION)
+BASEURL=https://github.com/ohmex/nuvo/releases/download/v$(PLATFORMVERSION)
 
 PACKAGEFILE=package_nuvo_c51_index.json
 
@@ -47,9 +47,9 @@ DATE=$(shell date '+%F')
 
 release:
 	# Update the version number in the changelog if not already done:
-	grep -q "$(COREVERSION)" ../CHANGELOG.md || \
-	sed -i "/^## \[Unreleased\]/ a\\\n\n## [$(COREVERSION) - $(DATE)]" ../CHANGELOG.md
+	grep -q "$(PLATFORMVERSION)" ../CHANGELOG.md || \
+	sed -i "/^## \[Unreleased\]/ a\\\n\n## [$(PLATFORMVERSION) - $(DATE)]" ../CHANGELOG.md
 	git add ../CHANGELOG.md ../$(PACKAGEFILE)
-	git add parts/tools-*-$(SDCCVERSION).txt parts/tools-*-$(TOOLSVERSION).txt parts/platform-*-$(COREVERSION).txt
+	git add parts/tools-*-$(SDCCVERSION).txt parts/tools-*-$(TOOLSVERSION).txt parts/platform-*-$(PLATFORMVERSION).txt
 	git commit
-	git tag v$(COREVERSION)
+	git tag v$(PLATFORMVERSION)

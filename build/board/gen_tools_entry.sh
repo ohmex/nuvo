@@ -14,12 +14,12 @@ Prints a full tool entry for the given filename stem to be added to the
 package_*_index.json file. It will include all OS variants found with the
 same filename stem and the same version specifier.
 
-usage: $0 toolfile-stem toolversion coreversion
+usage: $0 toolfile-stem toolversion PLATFORMVERSION
 
 Lists info for all files matching the filename pattern
 [toolsfile-stem]*[version]*
 
-The coreversion is only needed to build the download link.
+The PLATFORMVERSION is only needed to build the download link.
 
 Example: $0 release/sduino-tools 2017-10-21 0.3.1
 	prints information for all files matching the filename pattern
@@ -31,9 +31,9 @@ fi
 
 TRUNK=$1
 VERSION=$2
-COREVERSION=$3
+PLATFORMVERSION=$3
 
-BASEURL=https://github.com/ohmex/nuvo/releases/download/v${COREVERSION}
+BASEURL=https://github.com/ohmex/nuvo/releases/download/v${PLATFORMVERSION}
 
 ### helper functions #####################################################
 

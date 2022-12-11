@@ -1,6 +1,6 @@
 NAME=sdcc
-ifndef COREVERSION
-$(error COREVERSION is not set)
+ifndef PLATFORMVERSION
+$(error PLATFORMVERSION is not set)
 endif
 
 ifndef SDCCVERSION
@@ -15,17 +15,17 @@ endif
 #
 # - (default):
 #	build a new tools entry in the parts directory.
-# - repack SDCCVERSION=10738 COREVERSION=xx
+# - repack SDCCVERSION=10738 PLATFORMVERSION=xx
 #	repack the snapshot files in the Downloads directory into stipped
 #	down SDunino minimal packages.
-#	COREVERSION doesn't matter, but needs to be present.
+#	PLATFORMVERSION doesn't matter, but needs to be present.
 
 
 # where to look for the original SDCC download files
 DOWNLOADDIR=sdcc-downloads
 
 # where to put the generated files
-SDCCDIR=release/v$(COREVERSION)
+SDCCDIR=release/v$(PLATFORMVERSION)
 PARTSDIR=parts
 
 VERSION=$(SDCCVERSION)
@@ -44,7 +44,7 @@ TOOLS_STEM=$(SDCCDIR)/$(NAME)
 TOOLS_ENTRY=$(PARTSDIR)/tools-entry-$(NAME)-$(VERSION).txt
 
 $(TOOLS_ENTRY) : SDCC_TARS
-	./gen_tools_entry.sh "$(TOOLS_STEM)" "$(VERSION)" "$(COREVERSION)" > $@
+	./gen_tools_entry.sh "$(TOOLS_STEM)" "$(VERSION)" "$(PLATFORMVERSION)" > $@
 
 SDCC_TARS:
 	cp $(DOWNLOADDIR)/sdcc*-$(VERSION).* $(SDCCDIR)

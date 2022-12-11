@@ -18,17 +18,17 @@ TESTBASEDIR=C:/xampp/htdocs/nuvo
 # Make sure these definitions are visible for the sub-makes
 export
 
-.PHONY: core tools sdcc clean upload release
+.PHONY: platform tools sdcc clean upload release
 
 
 $(TESTPACKAGEFILE): ../$(PACKAGEFILE)
 	sed 's#http.*/download/#$(TESTBASEURL)/release/#' $^ > $@
 
-../$(PACKAGEFILE): core tools sdcc
+../$(PACKAGEFILE): platform tools sdcc
 	@echo "Generating the package_index file."
 	./assemble.sh $@
 
-core tools sdcc:
+platform tools sdcc:
 	make -f Makefile.$@
 
 clean:

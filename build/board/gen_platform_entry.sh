@@ -13,11 +13,11 @@ if [ $# -ne 4 ]; then
 	echo "Prints one platform entry for the given file to be added to the"
 	echo "package_*_index.json file."
 	echo
-	echo "usage: $0 corefile PLATFORMVERSION sdccversion toolsversion"
+	echo "usage: $0 PLATFORMFILE PLATFORMVERSION sdccversion toolsversion"
 	exit 1
 fi
 
-COREFILE=$1
+PLATFORMFILE=$1
 PLATFORMVERSION=$2
 SDCCVERSION=$3
 TOOLSVERSION=$4
@@ -86,5 +86,5 @@ cat << EOF
         }
     ],
 EOF
-print_filedata "$COREFILE"
+print_filedata "$PLATFORMFILE"
 echo "},"

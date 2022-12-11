@@ -14,15 +14,15 @@ endif
 
 
 # where to put the generated files
-COREDIR?=release/v$(PLATFORMVERSION)
+PLATFORMDIR?=release/v$(PLATFORMVERSION)
 PARTSDIR?=parts
 
 #
 ### No user serviceable part below here. ################################
 #
 
-# filename for the generated core file
-COREFILE=$(COREDIR)/$(NAME)-core-$(PLATFORMVERSION).tar.bz2
+# filename for the generated platform file
+PLATFORMFILE=$(PLATFORMDIR)/$(NAME)-platform-$(PLATFORMVERSION).tar.bz2
 
 # filename for the new platform entry
 PLATFORM_ENTRY=$(PARTSDIR)/platform-entry-$(NAME)-$(PLATFORMVERSION).txt
@@ -34,16 +34,16 @@ EXCLUDES=$(addprefix --exclude=, $(IGNORE))
 #
 
 # generate one platform entry for the new core file
-$(PLATFORM_ENTRY): $(COREFILE)
+$(PLATFORM_ENTRY): $(PLATFORMFILE)
 	./gen_platform_entry.sh $^ "$(PLATFORMVERSION)" "$(SDCCVERSION)" "$(TOOLSVERSION)" |\
 	sed "s/^/                /" > $@
 
-$(COREFILE): | $(COREDIR)
+$(PLATFORMFILE): | $(PLATFORMDIR)
 	echo "Generating the core archive file."
 	$(eval TMPDIR := $(shell mktemp -d))
 	cd ../..; git archive -v HEAD:platform|tar -x -C $(TMPDIR)
 	sed -i '/^tools\.nuvo/ s#{runtime.hardware.path}/tools#{runtime.tools.nuvo.path}#' $(TMPDIR)/nuvo/platform.txt
-	tar cvjf $(COREFILE) -C $(TMPDIR) .
+	tar cvjf $(PLATFORMFILE) -C $(TMPDIR) .
 	rm -rf $(TMPDIR)
 
 # make a new release directory if not present
@@ -51,5 +51,5 @@ $(COREFILE): | $(COREDIR)
 # make sure to define an order-only dependency on this rule by placing it on
 # the right side of a pipe symbol. This prevents rebuilding the archives
 # every time.
-$(COREDIR):
+$(PLATFORMDIR):
 	mkdir -p $@

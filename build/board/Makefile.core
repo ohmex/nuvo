@@ -44,8 +44,8 @@ $(PLATFORM_ENTRY): $(COREFILE)
 $(COREFILE): | $(COREDIR)
 	echo "Generating the core archive file."
 	$(eval TMPDIR := $(shell mktemp -d))
-	cd ../..; git archive -v HEAD:core|tar -x -C $(TMPDIR)
-	sed -i '/^tools\.nuvo/ s#{runtime.hardware.path}/tools#{runtime.tools.nuvo.path}#' $(TMPDIR)/platform.txt
+	cd ../..; git archive -v HEAD:platform|tar -x -C $(TMPDIR)
+	sed -i '/^tools\.nuvo/ s#{runtime.hardware.path}/tools#{runtime.tools.nuvo.path}#' $(TMPDIR)/nuvo/platform.txt
 	tar cvjf $(COREFILE) -C $(TMPDIR) .
 	rm -rf $(TMPDIR)
 

@@ -14,6 +14,6 @@ n76e003.build.variant=n76e003
 
 # meaningless variables just to keep the makefile happy
 
-ch551.upload.speed=1
+n76e003.upload.speed=1
 
 ##############################################################

@@ -75,7 +75,7 @@ list_boards
 cat << EOF
     "toolsDependencies": [
         {
-            "name": "nuvo",
+            "name": "ohmex",
             "version": "$TOOLSVERSION",
             "packager": "$PACKAGER"
         },

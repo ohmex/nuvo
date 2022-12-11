@@ -78,7 +78,7 @@ detect_tooltype()
 {
 	case $1 in
 		*nuvo* )
-			NAME=nuvo
+			NAME=ohmex
 			VERSIONSTRING=$VERSION
 			;;
 		*sdcc* )

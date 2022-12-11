@@ -54,25 +54,25 @@ $(TOOLS_ENTRY) : $(TOOLS_TARS)
 
 $(TOOLS_LINUX): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Linux 64 bit."
-	mkdir $(TMPDIR)
+	mkdir -p $(TMPDIR)/bin
 	cp -R -f $(BASEDIR)/wrapper $(TMPDIR)
-	cp -R -f $(BASEDIR)/linux/* $(TMPDIR)
+	cp -R -f $(BASEDIR)/linux/* $(TMPDIR)/bin
 	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
 	rm -rf $(TMPDIR)
 
 $(TOOLS_MAC): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Mac OS"
-	mkdir $(TMPDIR)
+	mkdir -p $(TMPDIR)/bin
 	cp -R -f $(BASEDIR)/wrapper $(TMPDIR)
-	cp -R -f $(BASEDIR)/mac/* $(TMPDIR)
+	cp -R -f $(BASEDIR)/mac/* $(TMPDIR)/bin
 	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
 	rm -rf $(TMPDIR)
 
 $(TOOLS_WINDOWS): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Windows 64."
-	mkdir $(TMPDIR)
+	mkdir -p $(TMPDIR)/bin
 	cp -R -f $(BASEDIR)/wrapper $(TMPDIR)
-	cp -R -f $(BASEDIR)/win/* $(TMPDIR)
+	cp -R -f $(BASEDIR)/win/* $(TMPDIR)/bin
 	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
 	rm -rf $(TMPDIR)
 

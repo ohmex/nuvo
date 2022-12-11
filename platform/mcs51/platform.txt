@@ -23,7 +23,7 @@ compiler.warning_flags.all=-Wp-Wall -V
 # Default "compiler.path" is correct, change only if you want to override the initial value
 compiler.path={runtime.tools.sdcc.path}/bin
 compiler.wrapper.path={runtime.tools.ohmex.path}/wrapper
-compiler.wrapper.path.windows={runtime.tools.ohmex.path}/busybox" ash "{runtime.tools.ohmex.path}/wrapper
+compiler.wrapper.path.windows={runtime.tools.ohmex.path}/bin/busybox" ash "{runtime.tools.ohmex.path}/wrapper
 compiler.tools.path={runtime.tools.avr-gcc.path}/bin
 
 compiler.c.cmd=sdcc
@@ -56,7 +56,7 @@ compiler.ldflags=
 
 #we use mem file directly, because we don't need to use size command
 compiler.size.cmd=cat
-compiler.size.cmd.windows={runtime.tools.ohmex.path}/busybox" cat "
+compiler.size.cmd.windows={runtime.tools.ohmex.path}/bin/busybox" cat "
 
 compiler.systemincludes="-I{compiler.syslibs.stdlib.path}/include"
 

@@ -1,5 +1,0 @@
-serialboot.name=Serial STM8 bootloader
-serialboot.communication=serial
-serialboot.protocol=stlinkv1
-serialboot.program.tool=stm8gal
-serialboot.program.extra_params=

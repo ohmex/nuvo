@@ -4,11 +4,11 @@
 # For more info on this file: https://arduino.github.io/arduino-cli/0.29/platform-specification/
 
 name=NUvoton C51 Platform
-version=0.0.1
+version=1.0.0
 
 # General folder structure variables
 # ----------------------------------
 
-runtime.tools.nuvo.path={runtime.hardware.path}/tools
+runtime.tools.ohmex.path={runtime.hardware.path}/tools/ohmex
 runtime.tools.sdcc.path={runtime.hardware.path}/tools/sdcc
 

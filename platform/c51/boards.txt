@@ -2,7 +2,7 @@ menu.upload_method=Upload method
 
 ##############################################################
 
-n76e003basic.name=Arduino Nuvo (N76E003) Basic Board
+n76e003basic.name=Nuvo Basic (N76E003)
 
 # First upload method is the default method
 n76e003basic.menu.upload_method.stm8flash_onboardMethod=Onboard ST-Link/V1 programmer

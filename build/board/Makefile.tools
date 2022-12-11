@@ -22,7 +22,7 @@ IGNORE=*~ *bak x build-* *.orig *.rej
 # where to put the generated files
 ARCHIVEDIR=release/v$(PLATFORMVERSION)
 PARTSDIR=parts
-
+TMPDIR=nuvo
 
 #
 ### No user serviceable part below here. Only generated content. ########
@@ -52,18 +52,29 @@ EXCLUDES=$(addprefix --exclude=, $(IGNORE))
 $(TOOLS_ENTRY) : $(TOOLS_TARS)
 	./gen_tools_entry.sh "$(TOOLS_STEM)" "$(TOOLSVERSION)" "$(PLATFORMVERSION)" > $@
 
-$(TOOLS_LINUX): | $(ARCHIVEDIR)
+$(TOOLS_LINUX): | $(ARCHIVEDIR) $(TMPDIR) TMPCLEAN
 	@echo "Generating the tools archive file for Linux 64 bit."
-	tar cjf $@ $(EXCLUDES) -C $(BASEDIR)/linux .
+	cp -R -f $(BASEDIR)/linux/* $(TMPDIR)
+	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
 
-$(TOOLS_MAC): | $(ARCHIVEDIR)
+$(TOOLS_MAC): | $(ARCHIVEDIR) $(TMPDIR)
 	@echo "Generating the tools archive file for Mac OS"
-	tar cjf $@ $(EXCLUDES) -C $(BASEDIR)/mac .
+	cp -R -f $(BASEDIR)/mac/* $(TMPDIR)
+	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
 
-$(TOOLS_WINDOWS): | $(ARCHIVEDIR)
+$(TOOLS_WINDOWS): | $(ARCHIVEDIR) $(TMPDIR)
 	@echo "Generating the tools archive file for Windows 64."
-	tar cjhf $@ $(EXCLUDES) -C $(BASEDIR)/win .
+	cp -R -f $(BASEDIR)/win/* $(TMPDIR)
+	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
 
+$(TMPDIR):
+	@echo "Creating $(TMPDIR) diectory"
+	mkdir $@
+	cp -R -f $(BASEDIR)/wrapper/* $@
+
+TMPCLEAN:
+	@echo "Cleaning $(TMPDIR) diectory"
+	rm -rf $(TMPDIR)
 
 # make a new release directory if not present
 #

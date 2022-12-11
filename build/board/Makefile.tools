@@ -1,4 +1,4 @@
-NAME=ohmex
+NAME=nuvo
 
 ifndef COREVERSION
 $(error COREVERSION is not set)

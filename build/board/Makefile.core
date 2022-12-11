@@ -44,7 +44,7 @@ $(PLATFORM_ENTRY): $(COREFILE)
 $(COREFILE): | $(COREDIR)
 	echo "Generating the core archive file."
 	$(eval TMPDIR := $(shell mktemp -d))
-	cd ../..; git archive -v HEAD:ohmex|tar -x -C $(TMPDIR)
+	cd ../..; git archive -v HEAD:core|tar -x -C $(TMPDIR)
 	sed -i '/^tools\.ohmex/ s#{runtime.hardware.path}/tools#{runtime.tools.ohmex.path}#' $(TMPDIR)/platform.txt
 	tar cvjf $(COREFILE) -C $(TMPDIR) .
 	rm -rf $(TMPDIR)

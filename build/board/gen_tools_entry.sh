@@ -83,7 +83,7 @@ detect_tooltype()
 			;;
 		*sdcc* )
 			NAME=sdcc
-			VERSIONSTRING=build.$VERSION
+			VERSIONSTRING=snapshot.$VERSION
 			;;
 	esac
 }

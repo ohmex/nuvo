@@ -11,6 +11,9 @@ n76e003.build.mcu=mcs51
 n76e003.build.board=n76e003
 n76e003.build.core=mcs51
 n76e003.build.variant=n76e003
-n76e003.build.mcu=n76e003
+
+# meaningless variables just to keep the makefile happy
+
+ch551.upload.speed=1
 
 ##############################################################

@@ -66,8 +66,8 @@ list_boards()
 
 cat << EOF
 {
-    "name": "Nuvoton C51 plain C core (non-C++)",
-    "architecture": "c51",
+    "name": "Nuvoton MCS51 plain C core (non-C++)",
+    "architecture": "mcs51",
     "version": "$PLATFORMVERSION",
     "category": "Contributed",
 EOF

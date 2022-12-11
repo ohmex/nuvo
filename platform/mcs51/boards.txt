@@ -1,0 +1,16 @@
+# See: http://code.google.com/p/arduino/wiki/Platforms
+
+menu.upload_method=Upload method
+
+##############################################################
+
+n76e003.name=Arduino Nuvo [N76E003]
+#n76e003 has 18K flash, but 4K is for bootloader, 14K usable
+n76e003.upload.maximum_size=14336
+n76e003.build.mcu=mcs51
+n76e003.build.board=n76e003
+n76e003.build.core=mcs51
+n76e003.build.variant=n76e003
+n76e003.build.mcu=n76e003
+
+##############################################################

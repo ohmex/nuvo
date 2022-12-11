@@ -8,7 +8,7 @@ TOOLSVERSION=2022
 
 BASEURL=https://github.com/ohmex/nuvo/releases/download/v$(PLATFORMVERSION)
 
-PACKAGEFILE=package_nuvo_c51_index.json
+PACKAGEFILE=package_nuvo_mcs51_index.json
 
 # Version for pre-release testing on my private server at home
 TESTPACKAGEFILE=package_test_index.json

@@ -52,28 +52,28 @@ EXCLUDES=$(addprefix --exclude=, $(IGNORE))
 $(TOOLS_ENTRY) : $(TOOLS_TARS)
 	./gen_tools_entry.sh "$(TOOLS_STEM)" "$(TOOLSVERSION)" "$(PLATFORMVERSION)" > $@
 
-$(TOOLS_LINUX): | $(ARCHIVEDIR) $(TMPDIR) TMPCLEAN
+$(TOOLS_LINUX): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Linux 64 bit."
+	mkdir $(TMPDIR)
+	cp -R -f $(BASEDIR)/wrapper/* $(TMPDIR)
 	cp -R -f $(BASEDIR)/linux/* $(TMPDIR)
 	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
+	rm -rf $(TMPDIR)
 
-$(TOOLS_MAC): | $(ARCHIVEDIR) $(TMPDIR)
+$(TOOLS_MAC): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Mac OS"
+	mkdir $(TMPDIR)
+	cp -R -f $(BASEDIR)/wrapper/* $(TMPDIR)
 	cp -R -f $(BASEDIR)/mac/* $(TMPDIR)
 	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
+	rm -rf $(TMPDIR)
 
-$(TOOLS_WINDOWS): | $(ARCHIVEDIR) $(TMPDIR)
+$(TOOLS_WINDOWS): | $(ARCHIVEDIR)
 	@echo "Generating the tools archive file for Windows 64."
+	mkdir $(TMPDIR)
+	cp -R -f $(BASEDIR)/wrapper/* $(TMPDIR)
 	cp -R -f $(BASEDIR)/win/* $(TMPDIR)
 	tar cjhf $@ $(EXCLUDES) $(TMPDIR)
-
-$(TMPDIR):
-	@echo "Creating $(TMPDIR) diectory"
-	mkdir $@
-	cp -R -f $(BASEDIR)/wrapper/* $@
-
-TMPCLEAN:
-	@echo "Cleaning $(TMPDIR) diectory"
 	rm -rf $(TMPDIR)
 
 # make a new release directory if not present

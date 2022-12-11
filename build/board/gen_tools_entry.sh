@@ -77,8 +77,8 @@ detect_hosttype()
 detect_tooltype()
 {
 	case $1 in
-		*ohmex* )
-			NAME=ohmex
+		*nuvo* )
+			NAME=nuvo
 			VERSIONSTRING=$VERSION
 			;;
 		*sdcc* )

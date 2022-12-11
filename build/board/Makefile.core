@@ -45,7 +45,7 @@ $(COREFILE): | $(COREDIR)
 	echo "Generating the core archive file."
 	$(eval TMPDIR := $(shell mktemp -d))
 	cd ../..; git archive -v HEAD:core|tar -x -C $(TMPDIR)
-	sed -i '/^tools\.ohmex/ s#{runtime.hardware.path}/tools#{runtime.tools.ohmex.path}#' $(TMPDIR)/platform.txt
+	sed -i '/^tools\.nuvo/ s#{runtime.hardware.path}/tools#{runtime.tools.nuvo.path}#' $(TMPDIR)/platform.txt
 	tar cvjf $(COREFILE) -C $(TMPDIR) .
 	rm -rf $(TMPDIR)
 

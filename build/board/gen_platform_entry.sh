@@ -49,7 +49,7 @@ list_boards()
 {
 	echo -n "    \"boards\": ["
 	n=0
-	sed -n "s/.*\.name=//p" ../../n76e/boards.txt |\
+	sed -n "s/.*\.name=//p" ../../platform/nuvo/boards.txt |\
 	while read line; do
 		if [ $n -ne 0 ]; then echo -n ","; fi
 		echo
@@ -66,7 +66,7 @@ list_boards()
 
 cat << EOF
 {
-    "name": "Ohmex C51 plain C core (non-C++)",
+    "name": "Nuvoton C51 plain C core (non-C++)",
     "architecture": "c51",
     "version": "$COREVERSION",
     "category": "Contributed",
@@ -75,7 +75,7 @@ list_boards
 cat << EOF
     "toolsDependencies": [
         {
-            "name": "ohmex",
+            "name": "nuvo",
             "version": "$TOOLSVERSION",
             "packager": "$PACKAGER"
         },

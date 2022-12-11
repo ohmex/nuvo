@@ -209,7 +209,7 @@ void loop(void);
 
 //FIXME#include "WCharacter.h"
 //FIXME#include "WString.h"
-#include "HardwareSerial.h"
+//#include "HardwareSerial.h"
 
 //uint16_t makeWord(uint16_t w);
 //uint16_t makeWord(byte h, byte l);

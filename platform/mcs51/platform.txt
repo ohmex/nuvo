@@ -11,7 +11,7 @@ version=1.0.0
 runtime.tools.sdcc.path={runtime.hardware.path}/tools/sdcc
 runtime.tools.ohmex.path={runtime.hardware.path}/tools/ohmex
 
-# CH55x compile variables
+# MCS51 compile variables
 # ---------------------
 
 compiler.warning_flags=

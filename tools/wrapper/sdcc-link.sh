@@ -142,8 +142,57 @@ line="${line//.o	/.rel	}"
 line="${line//.a	/.lib	}"
 vprint 2 "- after substitution: $line"
 
-vprint 1 "cmd: ${ORANGE}$SDCC $line${OFF}"
-"$SDCC" $line
+
+#put rel files with optionalLink name into a lib to do dead code removal
+outPath=""
+for FILE in $line; do
+	if expr "$FILE" : ".*\.elf$" > /dev/null; then
+		outPath="$(dirname "${FILE}")"
+	fi
+done
+optionalLinkLib="$outPath/optionalLink.lib"
+
+lineRel=""
+lineExtractRel=""
+optionalLinkFound="false"
+
+for FILE in $line; do
+	if expr "$FILE" : ".*optionalLink.*\.rel$" > /dev/null; then
+		lineExtractRel="$lineExtractRel	$FILE"
+		if [[ "$optionalLinkFound" == "false" ]]; then
+			lineRel="$lineRel	$optionalLinkLib"
+			optionalLinkFound="true"
+		fi
+	else
+		lineRel="$lineRel	$FILE"
+	fi
+done
+
+if [[ "$optionalLinkFound" == "true" ]]; then
+	if [ -f "$optionalLinkLib" ] ; then
+	    rm "$optionalLinkLib"
+	fi
+	
+	SDAR="$(dirname "${SDCC}")/sdar"
+	for FILE in $lineExtractRel; do
+		"$SDAR"	"rcs" "$optionalLinkLib" "$FILE"
+	done
+fi
+
+vprint 1 "cmd: ${ORANGE}$SDCC $lineRel${OFF}"
+"$SDCC" $lineRel
+
+#check if CSEG is even
+MAPFILE=${FILE%.*}.map
+if [ -f ${MAPFILE} ]; then
+    #only get 1st match
+    CSEG_ADDR_STR="$(grep -o '^CSEG[ ]\+[0-9A-F]\+' ${MAPFILE} | head -1)"
+    CSEG_ADDR_HEX_VAL="$(echo ${CSEG_ADDR_STR} | grep -o '[^ ]*$')"
+    CSEG_ADDR_DEC_VAL="$(printf '%d' 0x${CSEG_ADDR_HEX_VAL})"
+    if [ $((CSEG_ADDR_DEC_VAL%2)) -eq 1 ]; then
+        >&2 echo "Warning: CSEG starts at odd address: ${CSEG_ADDR_HEX_VAL}, and it may cause timing issue"
+    fi
+fi
 
 # propagate the sdcc exit code
 exit $?

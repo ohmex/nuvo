@@ -70,9 +70,11 @@ fi
 PATH="$(dirname $1)":$PATH
 
 # echo the full command line in cyan:
->&2 echo -ne "${CYAN}"
->&2 echo -n  "${@}"
->&2 echo -e  "${OFF}"
+if [ $VERBOSE -gt 0 ]; then
+	>&2 echo -ne "${CYAN}"
+	>&2 echo -n  "${@}"
+	>&2 echo -e  "${OFF}"
+fi
 
 # echo the mark id in green and the compiler call in white:
 SDCC=$1
@@ -81,23 +83,17 @@ OBJ=$3
 REL=${OBJ%.o}.rel
 MARK=$4
 shift 4
->&2 echo -ne "${GREEN}Mark $MARK:${OFF}"
->&2 echo "$SDCC" "$@" "$SRC" -o "$OBJ"
+
+if [ $VERBOSE -gt 0 ]; then
+	>&2 echo -ne "${GREEN}Mark $MARK:${OFF}"
+	>&2 echo "$SDCC" "$@" "$SRC" -o "$OBJ"
+fi
 
 case "$SRC" in
 	*.cpp)
-		# rename .cpp to .c and compile
-		>&2 echo -e "${RED}cpp gefunden${OFF}";
-		CSRC="${SRC%pp}"
-		(
-			# add a reference to main to pull in main.c
-			echo "void main(void); void (*dummy_variable) () = main;"
-                	cat "$SRC"
-                ) > "$CSRC"
-#		cp -a "$SRC" "$CSRC"
-		"$SDCC" "$@" "$CSRC" -o "$OBJ"
+		# use -x c to compile as c, add a reference to main to pull in main.c
+		"$SDCC" "$@" -x c --include dummy_variable_main.h "$SRC"  -o "$OBJ"
 		ERR=$?
-		rm -f "$CSRC"
 		;;
 	*.c)
 		# compile a .c file
@@ -106,10 +102,86 @@ case "$SRC" in
 		;;
 esac
 
+# Deqing: For some reason my version of SDCC don't generate rel file, it creates o file directly, so I modified the SDCC command below
 # copy the generated .rel files as an .o file to avoid recompiling the next time
-if [ -e "${REL}" ]; then
-	cp -a "${REL}" "${OBJ}"
+# if OBJ is a .o file we copy back
+if [[ ${OBJ%.o} != $OBJ ]]
+then
+	cp -a "${OBJ}" "${REL}"
 fi
 
+#check rel file size, if it is odd, add by 1 to align code
+if [ -f ${REL} ]; then
+    #check CSEG size
+    CSEG_STR="$(grep -o '^A CSEG size [0-9A-F]\+' ${REL})"
+    if [[ -z "$CSEG_STR" ]]; then
+        >&2 echo "CSEG String not found in ${REL}"
+    else
+        CSEG_HEX_VAL="$(echo ${CSEG_STR} | grep -o '[^ ]*$')"
+        CSEG_DEC_VAL="$(printf '%d' 0x${CSEG_HEX_VAL})"
+        if [ $VERBOSE -gt 0 ]; then
+            >&2 echo "CSEG of ${REL} is hex: ${CSEG_HEX_VAL}, dec:${CSEG_DEC_VAL}"
+        fi
+        if [ $((CSEG_DEC_VAL%2)) -eq 1 ]; then
+            CSEG_ADDED_HEX_VAL="$(printf '%X' $((CSEG_DEC_VAL+1)))"
+            if [ $VERBOSE -gt 0 ]; then
+                >&2 echo "Change CSEG value from ${CSEG_HEX_VAL} to ${CSEG_ADDED_HEX_VAL}"
+            fi
+            if [[ $(uname) == "Darwin" ]]; then
+				if [[ $(sed --version 2>/dev/null) != *GNU* ]]; then
+					#IDE V1 uses /usr/bin/sed
+					sed -i '' -e "s/${CSEG_STR}/A CSEG size ${CSEG_ADDED_HEX_VAL}/g" ${REL}
+				else
+					#IDE V2 uses /usr/local/bin/sed
+					sed -i'' -e "s/${CSEG_STR}/A CSEG size ${CSEG_ADDED_HEX_VAL}/g" ${REL}
+				fi
+            else
+                sed -i'' -e "s/${CSEG_STR}/A CSEG size ${CSEG_ADDED_HEX_VAL}/g" ${REL}
+            fi
+        fi
+    fi
+    #check GSINIT size with the same method
+    GSINIT_STR="$(grep -o '^A GSINIT size [0-9A-F]\+' ${REL})"
+    if [[ -z "$GSINIT_STR" ]]; then
+        >&2 echo "GSINIT String not found in ${REL}"
+    else
+        GSINIT_HEX_VAL="$(echo ${GSINIT_STR} | grep -o '[^ ]*$')"
+        GSINIT_DEC_VAL="$(printf '%d' 0x${GSINIT_HEX_VAL})"
+        if [ $VERBOSE -gt 0 ]; then
+            >&2 echo "GSINIT of ${REL} is hex: ${GSINIT_HEX_VAL}, dec:${GSINIT_DEC_VAL}"
+        fi
+        if [ $((GSINIT_DEC_VAL%2)) -eq 1 ]; then
+            GSINIT_ADDED_HEX_VAL="$(printf '%X' $((GSINIT_DEC_VAL+1)))"
+            if [ $VERBOSE -gt 0 ]; then
+                >&2 echo "Change GSINIT value from ${GSINIT_HEX_VAL} to ${GSINIT_ADDED_HEX_VAL}"
+            fi
+            if [[ $(uname) == "Darwin" ]]; then
+				if [[ $(sed --version 2>/dev/null) != *GNU* ]]; then
+					#IDE V1 uses /usr/bin/sed
+					sed -i '' -e "s/${GSINIT_STR}/A GSINIT size ${GSINIT_ADDED_HEX_VAL}/g" ${REL}
+				else
+					#IDE V2 uses /usr/local/bin/sed
+					sed -i'' -e "s/${GSINIT_STR}/A GSINIT size ${GSINIT_ADDED_HEX_VAL}/g" ${REL}
+				fi
+            else
+                sed -i'' -e "s/${GSINIT_STR}/A GSINIT size ${GSINIT_ADDED_HEX_VAL}/g" ${REL}
+            fi
+        fi
+    fi
+    #check if "A GSFINAL size 3" exists in main, the "ljmp __sdcc_program_startup"? is 3 bytes and takes GSFINAL
+    if [ -n "$(echo ${REL} | grep -c main.c)" ]; then
+        if [[ $(uname) == "Darwin" ]]; then
+			if [[ $(sed --version 2>/dev/null) != *GNU* ]]; then
+				#IDE V1 uses /usr/bin/sed
+				sed -i '' -e "s/A GSFINAL size 3/A GSFINAL size 4/g" ${REL} 
+			else
+				#IDE V2 uses /usr/local/bin/sed
+				sed -i'' -e "s/A GSFINAL size 3/A GSFINAL size 4/g" ${REL}
+			fi
+        else
+            sed -i'' -e "s/A GSFINAL size 3/A GSFINAL size 4/g" ${REL}
+        fi
+    fi
+fi
 # propagate the sdcc exit code
 exit $ERR

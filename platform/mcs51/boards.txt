@@ -1,22 +1,20 @@
 # See: http://code.google.com/p/arduino/wiki/Platforms
 
-menu.upload_method=Upload method
+###############################################################################
 
-##############################################################
-
+# N76E003 has 18K (18432) flash, but 4K is for bootloader, 14K (14336) usable
 n76e003.name=Arduino Nuvo [N76E003]
-#n76e003 has 18K flash, but 4K is for bootloader, 14K usable
+
 n76e003.upload.code_size=14336
 n76e003.upload.xram_size=768
 n76e003.upload.iram_size=256
 n76e003.upload.xdata_location=0
+
 n76e003.build.mcu=mcs51
+n76e003.build.f_cpu=16000000L
+n76e003.build.f_oscillator_external=0L
 n76e003.build.board=n76e003
 n76e003.build.core=mcs51
 n76e003.build.variant=n76e003
 
-# meaningless variables just to keep the makefile happy
-
-n76e003.upload.speed=1
-
-##############################################################
+###############################################################################

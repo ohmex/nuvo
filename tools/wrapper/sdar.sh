@@ -69,15 +69,10 @@ fi
 SDAR=$1
 LIB=$2
 OBJ=${3%.o}.rel
-MARK=$4
+FLAGS=$4
 shift 4
 
-if [ $VERBOSE -gt 0 ]; then
-	>&2 echo -ne "${GREEN}Mark $MARK:${OFF}"
-	>&2 echo "$SDAR" "$@" "$LIB" "$OBJ"
-fi
-
-"$SDAR" "$@" "$LIB" "$OBJ"
+"$SDAR" "$FLAGS" "$@" "$LIB" "$OBJ"
 ERR=$?
 cp -a "$LIB" "${LIB%.a}.lib"
 

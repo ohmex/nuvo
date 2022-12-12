@@ -168,7 +168,7 @@ if [ -f ${REL} ]; then
             fi
         fi
     fi
-    #check if "A GSFINAL size 3" exists in main, the "ljmp __sdcc_program_startup"? is 3 bytes and takes GSFINAL
+    #check if "A GSFINAL size 3" exists in main, the "ljmp __sdcc_program_startup"∂ is 3 bytes and takes GSFINAL
     if [ -n "$(echo ${REL} | grep -c main.c)" ]; then
         if [[ $(uname) == "Darwin" ]]; then
 			if [[ $(sed --version 2>/dev/null) != *GNU* ]]; then

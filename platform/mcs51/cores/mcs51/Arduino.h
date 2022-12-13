@@ -31,7 +31,7 @@
 //#include "include/ch5xx_usb.h"
 //#include "pins_arduino_include.h"
 //Macro-based digital IO fucntions
-//#include "wiring_digital_fast.h"
+#include "wiring_digital_fast.h"
 
 //!!!!#include "binary.h"
 

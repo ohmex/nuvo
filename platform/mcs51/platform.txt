@@ -50,6 +50,9 @@ compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,
 compiler.elf2hex.cmd=sdobjcopy
 compiler.elf2hex.flags=-O ihex -R DATA -R INITIALIZED -R SSEG
 
+compiler.makebin.cmd=makebin
+compiler.makebin.flags=-p
+
 compiler.syslibs.stdlib.path={runtime.tools.sdcc.path}/share/sdcc
 compiler.syslibs.stdlib.path.windows={runtime.tools.sdcc.path}
 compiler.ldflags=
@@ -95,6 +98,7 @@ recipe.c.combine.pattern="{compiler.wrapper.path}/{compiler.c.elf.wrapper}" "{co
 ## Create output files (.eep and .hex)
 recipe.objcopy.eep.pattern="{compiler.tools.path}/{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
 recipe.objcopy.hex.pattern="{compiler.tools.path}/{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+recipe.objcopy.bin.pattern="{compiler.tools.path}/{compiler.makebin.cmd}" {compiler.makebin.flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
 
 ## Save hex
 recipe.output.tmp_file={build.project_name}.hex
